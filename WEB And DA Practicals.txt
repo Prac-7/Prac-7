@@ -1,0 +1,1961 @@
+*********************************************WEB AND DA PRACTICALS********************************************
+#Slip 1
+
+book.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <bookno>1</bookno>
+        <bookname>PHP for Beginners</bookname>
+        <authorname>John Doe</authorname>
+        <price>29.99</price>
+        <year>2021</year>
+    </book>
+    <book>
+        <bookno>2</bookno>
+        <bookname>Advanced PHP Programming</bookname>
+        <authorname>Jane Smith</authorname>
+        <price>39.99</price>
+        <year>2022</year>
+    </book>
+</library>
+
+display_books.php:
+<?php 
+$xml = simplexml_load_file("book.xml"); 
+if ($xml === false) { 
+    echo "Failed to load XML file."; 
+    foreach(libxml_get_errors() as $error) { 
+        echo "<br>", $error->message; 
+    } 
+    exit; 
+} 
+foreach ($xml->book as $book) { 
+    echo "Book Number: " . $book->bookno . "<br>"; 
+    echo "Book Name: " . $book->bookname . "<br>"; 
+    echo "Author Name: " . $book->authorname . "<br>"; 
+    echo "Price: " . $book->price . "<br>"; 
+    echo "Year: " . $book->year . "<br>"; 
+    echo "<hr>"; 
+} 
+?>
+
+python:
+
+ import pandas as pd
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ from sklearn.metrics import mean_squared_error, r2_score
+ np.random.seed(42)
+ data = {
+ 'ID': np.arange(1, 501),
+ 'TV': np.random.randint(10, 100, 500),
+ 'Radio': np.random.randint(5, 50, 500),
+ 'Newspaper': np.random.randint(1, 20, 500),
+ 'Sales': np.random.randint(50, 200, 500)
+ }
+ df = pd.DataFrame(data)
+
+ X=df[['TV', 'Radio', 'Newspaper']]
+ y =df['Sales']
+ 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+ random_state=42)
+ print(f"X_train shape: {X_train.shape}")
+ print(f"X_test shape: {X_test.shape}")
+ print(f"y_train shape: {y_train.shape}")
+print(f"y_test shape: {y_test.shape}")
+ 
+ model = LinearRegression()
+ model.fit(X_train, y_train)
+
+ y_pred = model.predict(X_test)
+ mse = mean_squared_error(y_test, y_pred)
+ r2 = r2_score(y_test, y_pred)
+ print(f"Mean Squared Error: {mse}")
+ print(f"R-squared: {r2}")
+ 
+***************************************************************************************************************
+
+Slip 2
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Preparation</title>
+    <script>
+        function examPreparation() {
+            
+            alert("Exams are near, have you started preparing for them?");
+            
+            
+            const startedPreparing = confirm("Have you started preparing for your exams?");
+            
+            if (startedPreparing) {
+                const studyHours = prompt("Great! How many hours are you studying daily?");
+                
+                if (studyHours && !isNaN(studyHours)) {
+                    alert(`Well done! Studying ${studyHours} hours daily is a good habit. Keep it up!`);
+                } else {
+                    alert("Please make sure to plan your study hours. Stay focused!");
+                }
+            } else {
+                alert("It's never too late to start preparing. Begin your studies today and good luck!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Exam Preparation Reminder</h1>
+    <button onclick="examPreparation()">Start Exam Preparation Check</button>
+</body>
+</html>
+
+
+Python:
+
+ import pandas as pd
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.metrics import accuracy_score, confusion_matrix
+ np.random.seed(42)
+ data = {
+ 'User ID': np.arange(1, 501),
+ 'Gender': np.random.choice(['Male', 'Female'], 500),
+ 'Age': np.random.randint(18, 60, 500),
+ 'EstimatedSalary': np.random.randint(15000, 150000, 500),
+ 'Purchased': np.random.choice([0, 1], 500) 
+ }
+ df = pd.DataFrame(data)
+ df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+ 
+ X=df[['Gender', 'Age', 'EstimatedSalary']]
+ y =df['Purchased']
+ 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+ random_state=42)
+ model = LogisticRegression()
+ model.fit(X_train, y_train)
+
+ y_pred = model.predict(X_test)
+
+ accuracy = accuracy_score(y_test, y_pred)
+ conf_matrix = confusion_matrix(y_test, y_pred)
+ print(f"Accuracy: {accuracy}")
+ print(f"Confusion Matrix:\n{conf_matrix}")
+
+**************************************************************************************************************
+
+Slip 3
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            let isValid = true;
+            
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+df = pd.read_csv('/media/sf_Bothos/pyprac/Fish.csv')
+
+print("First few rows of the dataset:")
+print(df.head())
+
+print("\nMissing values in the dataset:")
+print(df.isnull().sum())
+
+X = df[['Length1', 'Length2', 'Height', 'Width']]  
+y = df['Weight']  
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=101)
+
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+predictions = lr.predict(X_test)
+
+
+mse = mean_squared_error(y_test, predictions)
+r2 = r2_score(y_test, predictions)
+
+print(f'\nMean Squared Error: {mse}')
+print(f'R² Score: {r2}')
+
+plt.scatter(y_test, predictions)
+plt.xlabel('Actual Weights')
+plt.ylabel('Predicted Weights')
+plt.title('Actual vs Predicted Weights')
+plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2)   
+plt.show()
+
+**************************************************************************************************************
+
+Slip 4
+
+book.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <bookno>1</bookno>
+        <bookname>PHP for Beginners</bookname>
+        <authorname>John Doe</authorname>
+        <price>29.99</price>
+        <year>2021</year>
+    </book>
+    <book>
+        <bookno>2</bookno>
+        <bookname>Advanced PHP Programming</bookname>
+        <authorname>Jane Smith</authorname>
+        <price>39.99</price>
+        <year>2022</year>
+    </book>
+</library>
+
+display_books.php:
+<?php 
+$xml = simplexml_load_file("book.xml"); 
+if ($xml === false) { 
+    echo "Failed to load XML file."; 
+    foreach(libxml_get_errors() as $error) { 
+        echo "<br>", $error->message; 
+    } 
+    exit; 
+} 
+foreach ($xml->book as $book) { 
+    echo "Book Number: " . $book->bookno . "<br>"; 
+    echo "Book Name: " . $book->bookname . "<br>"; 
+    echo "Author Name: " . $book->authorname . "<br>"; 
+    echo "Price: " . $book->price . "<br>"; 
+    echo "Year: " . $book->year . "<br>"; 
+    echo "<hr>"; 
+} 
+?>
+
+
+python:
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+np.random.seed(42)
+
+data = {
+    'ID': np.arange(1, 501),
+    'flat': np.random.randint(10, 100, 500),
+    'houses': np.random.randint(5, 50, 500),
+    'purchases': np.random.randint(50, 200, 500)
+}
+
+df = pd.DataFrame(data)
+
+X = df[['flat', 'houses']]
+y = df['purchases']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+print(f"X_train shape: {X_train.shape}")
+print(f"X_test shape: {X_test.shape}")
+print(f"y_train shape: {y_train.shape}")
+print(f"y_test shape: {y_test.shape}")
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse}")
+print(f"R-squared: {r2}")
+
+**************************************************************************************************************
+
+Slip 5
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Preparation</title>
+    <script>
+        function examPreparation() {
+            alert("Exams are near, have you started preparing for them?");
+            
+            const startedPreparing = confirm("Have you started preparing for your exams?");
+            
+            if (startedPreparing) {
+                const studyHours = prompt("Great! How many hours are you studying daily?");
+                
+                if (studyHours && !isNaN(studyHours)) {
+                    alert(`Well done! Studying ${studyHours} hours daily is a good habit. Keep it up!`);
+                } else {
+                    alert("Please make sure to plan your study hours. Stay focused!");
+                }
+            } else {
+                alert("It's never too late to start preparing. Begin your studies today and good luck!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Exam Preparation Reminder</h1>
+    <button onclick="examPreparation()">Start Exam Preparation Check</button>
+</body>
+</html>
+
+
+
+Python:
+
+import pandas as pd 
+from mlxtend.preprocessing import TransactionEncoder 
+from mlxtend.frequent_patterns import apriori, association_rules 
+dataset = [ 
+['Bread', 'Milk'], 
+['Bread', 'Diaper', 'Beer', 'Eggs'], 
+['Milk', 'Diaper', 'Beer', 'Coke'], 
+['Bread', 'Milk', 'Diaper', 'Beer'], 
+['Bread', 'Milk', 'Diaper', 'Coke'] 
+] 
+te = TransactionEncoder() 
+te_ary = te.fit(dataset).transform(dataset) 
+df = pd.DataFrame(te_ary, columns=te.columns_) 
+print("One-hot encoded DataFrame:") 
+print(df) 
+frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True) 
+print("\nFrequent itemsets with min_support=0.6:") 
+print(frequent_itemsets) 
+rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7, num_itemsets = len (dataset)) 
+print("\nAssociation rules with min_confidence=0.7:") 
+print(rules)
+
+**************************************************************************************************************
+
+Slip 6
+
+contaxt.dat:
+1,Raj Joshi,1234567890,9876543210,Pune
+2,Kunal Kulkarni,2345678901,8765432109,Mumbai
+3,Sachin Deshpande,3456789012,7654321098,Pune
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Contact Viewer</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Viewer</h1>
+        <button id="printButton">Print Contacts</button>
+        <div id="output"></div>
+    </div>
+    <script>
+        document.getElementById("printButton").addEventListener("click", function() {
+            const xhr = new XMLHttpRequest();
+            const file = "contact.dat";
+            xhr.open("GET", file, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const data = xhr.responseText;
+                    const lines = data.split("\n");
+
+                    let table = "<table>";
+                    table += "<tr><th>Sr No</th><th>Name</th><th>Residence Number</th><th>Mobile Number</th><th>Address</th></tr>";
+
+                    lines.forEach(line => {
+                        if (line.trim() !== "") {
+                            const fields = line.split(",");
+                            table += `<tr>
+                                <td>${fields[0]}</td>
+                                <td>${fields[1]}</td>
+                                <td>${fields[2]}</td>
+                                <td>${fields[3]}</td>
+                                <td>${fields[4]}</td>
+                            </tr>`;
+                        }
+                    });
+
+                    table += "</table>";
+                    document.getElementById("output").innerHTML = table;
+                } else {
+                    document.getElementById("output").innerHTML = "Failed to load the file.";
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById("output").innerHTML = "Error fetching the file.";
+            };
+
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
+
+
+python:
+import pandas as pd
+
+df = pd.read_csv('instagram_influencers.csv')
+
+print("Dataset Preview:")
+print(df.head())
+
+india_influencers = df[df['Country'] == 'India']
+
+top_india_influencers = india_influencers.sort_values(by='Followers', ascending=False)
+
+top_5_influencers = top_india_influencers.head(5)
+
+print("\nTop 5 Influencers from India:")
+print(top_5_influencers[['Name', 'Followers', 'Category']])
+
+*************************************************************************************************************
+
+Slip 7
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Name Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-top: 10px;
+            width: 300px;
+        }
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Type Your Name</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <p id="responseMessage">Stranger, please tell me your name!</p>
+    <script>
+        $(document).ready(function () {
+            const knownNames = ["Rohit", "Virat", "Dhoni", "Ashwin", "Harbhajan"];
+            $("#nameInput").on("keyup", function () {
+                const name = $(this).val().trim();
+                setTimeout(() => {
+                    if (name === "") {
+                        $("#responseMessage").text("Stranger, please tell me your name!");
+                    } else if (knownNames.includes(name)) {
+                        $("#responseMessage").text(`Hello, master ${name}!`);
+                    } else {
+                        $("#responseMessage").text(`${name}, I don’t know you!`);
+                    }
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
+
+python:
+import pandas as pd
+
+df = pd.read_csv('/media/sf_Bothos/pyprac/Market_Basket_analysis.csv')
+
+print("Dataset Information:")
+print(df.info())
+
+print("\nDataset Preview:")
+print(df.head())
+
+df.dropna(inplace=True)
+
+top_support_rules = df.sort_values(by='support', ascending=False).head(5)
+print("\nTop 5 Rules by Support:")
+print(top_support_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_confidence_rules = df.sort_values(by='confidence', ascending=False).head(5)
+print("\nTop 5 Rules by Confidence:")
+print(top_confidence_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_lift_rules = df.sort_values(by='lift', ascending=False).head(5)
+print("\nTop 5 Rules by Lift:")
+print(top_lift_rules[['rules', 'support', 'confidence', 'lift']])
+
+**************************************************************************************************************
+
+Slip 8
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            let isValid = true;
+            
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+import nltk
+import re
+from nltk.tokenize import sent_tokenize
+
+nltk.download('punkt')
+
+text = """pc is g pc is a pc is y pc pc p pccpc  p pc p  pcpcpc p p pc pc pcpc p c
+Natural Language Processing (NLP) is a field of 
+artificial intelligence that focuses on the interaction 
+between computers and humans using natural language. 
+NLP techniques enable computers to process and understand human language, 
+allowing applications such as speech recognition, machine translation, 
+and sentiment analysis. The field has seen significant advancements due 
+to deep learning and large-scale language models."""
+
+clean_text = re.sub(r'[^a-zA-Z\s]', '', text)
+
+sentences = sent_tokenize(clean_text)
+
+summary = " ".join(sentences[:2])
+print("Extractive Summary:\n", summary)
+
+**************************************************************************************************************
+
+Slip 9
+
+contaxt.dat:
+1,Raj Joshi,1234567890,9876543210,Pune
+2,Kunal Kulkarni,2345678901,8765432109,Mumbai
+3,Sachin Deshpande,3456789012,7654321098,Pune
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Contact Viewer</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Viewer</h1>
+        <button id="printButton">Print Contacts</button>
+        <div id="output"></div>
+    </div>
+    <script>
+        document.getElementById("printButton").addEventListener("click", function() {
+            const xhr = new XMLHttpRequest();
+            const file = "contact.dat";
+            xhr.open("GET", file, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const data = xhr.responseText;
+                    const lines = data.split("\n");
+
+                    let table = "<table>";
+                    table += "<tr><th>Sr No</th><th>Name</th><th>Residence Number</th><th>Mobile Number</th><th>Address</th></tr>";
+
+                    lines.forEach(line => {
+                        if (line.trim() !== "") {
+                            const fields = line.split(",");
+                            table += `<tr>
+                                <td>${fields[0]}</td>
+                                <td>${fields[1]}</td>
+                                <td>${fields[2]}</td>
+                                <td>${fields[3]}</td>
+                                <td>${fields[4]}</td>
+                            </tr>`;
+                        }
+                    });
+
+                    table += "</table>";
+                    document.getElementById("output").innerHTML = table;
+                } else {
+                    document.getElementById("output").innerHTML = "Failed to load the file.";
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById("output").innerHTML = "Error fetching the file.";
+            };
+
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
+
+
+python:
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+data = pd.read_csv('/media/sf_Bothos/pyprac/groceries - groceries.csv')
+print("Dataset Information:")
+print(data.info())
+print("\nFirst few rows of the dataset:")
+print(data.head())
+data.dropna(how='all', inplace=True)  
+basket = data.melt(id_vars=['Item(s)'], value_vars=data.columns[1:], 
+                   var_name='Item Number', value_name='Item').dropna()
+basket = (basket
+          .groupby(['Item(s)', 'Item'])['Item']
+          .count().unstack().reset_index().fillna(0)
+          .set_index('Item(s)'))
+basket = basket.applymap(lambda x: 1 if x > 0 else 0)
+frequent_itemsets = apriori(basket, min_support=0.01, use_colnames=True)
+rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+print("\nFrequent Itemsets:")
+print(frequent_itemsets)
+
+print("\nAssociation Rules:")
+print(rules)
+
+*************************************************************************************************************
+
+Slip 10
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Preparation</title>
+    <script>
+        function examPreparation() {
+            
+            alert("Exams are near, have you started preparing for them?");
+            
+          
+            const startedPreparing = confirm("Have you started preparing for your exams?");
+            
+            if (startedPreparing) {
+               
+                const studyHours = prompt("Great! How many hours are you studying daily?");
+                
+              
+                if (studyHours && !isNaN(studyHours)) {
+                    alert(`Well done! Studying ${studyHours} hours daily is a good habit. Keep it up!`);
+                } else {
+                    alert("Please make sure to plan your study hours. Stay focused!");
+                }
+            } else {
+               
+                alert("It's never too late to start preparing. Begin your studies today and good luck!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Exam Preparation Reminder</h1>
+    <button onclick="examPreparation()">Start Exam Preparation Check</button>
+</body>
+</html>
+
+
+Python:
+import pandas as pd 
+from mlxtend.preprocessing import TransactionEncoder 
+from mlxtend.frequent_patterns import apriori, association_rules 
+transactions = [ 
+['Apple', 'Banana', 'Milk'], 
+['Apple', 'Diaper', 'Beer', 'Eggs'], 
+['Milk', 'Diaper', 'Beer', 'Coke'], 
+['Apple', 'Milk', 'Diaper', 'Beer'], 
+['Apple', 'Milk', 'Diaper', 'Coke'] 
+] 
+te = TransactionEncoder() 
+te_ary = te.fit(transactions).transform(transactions) 
+df = pd.DataFrame(te_ary, columns=te.columns_) 
+print("One-hot encoded DataFrame:") 
+print(df) 
+frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True) 
+print("\nFrequent itemsets with min_support=0.6:") 
+print(frequent_itemsets) 
+rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7, num_itemsets = len (transactions)) 
+print("\nAssociation rules with min_confidence=0.7:") 
+print(rules)
+
+**************************************************************************************************************
+
+Slip 11
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Name Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-top: 10px;
+            width: 300px;
+        }
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Type Your Name</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <p id="responseMessage">Stranger, please tell me your name!</p>
+    <script>
+        $(document).ready(function () {
+            const knownNames = ["Rohit", "Virat", "Dhoni", "Ashwin", "Harbhajan"];
+            $("#nameInput").on("keyup", function () {
+                const name = $(this).val().trim();
+                setTimeout(() => {
+                    if (name === "") {
+                        $("#responseMessage").text("Stranger, please tell me your name!");
+                    } else if (knownNames.includes(name)) {
+                        $("#responseMessage").text(`Hello, master ${name}!`);
+                    } else {
+                        $("#responseMessage").text(`${name}, I don’t know you!`);
+                    }
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
+
+python:
+import pandas as pd
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Step 1: Load the Iris dataset
+iris = sns.load_dataset('iris')
+
+# Step 2: View basic statistical details
+print("Basic Statistical Details:")
+print(iris.describe())
+
+# Filter the dataset for the three species
+species = ['setosa', 'versicolor', 'virginica']
+iris_filtered = iris[iris['species'].isin(species)]
+
+# Step 3: Prepare the data for logistic regression
+# Features and target variable
+X = iris_filtered[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
+y = iris_filtered['species']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Apply Logistic Regression
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 6: Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\nAccuracy of the Logistic Regression model: {accuracy:.2f}")
+
+**************************************************************************************************************
+
+Slip 12
+
+teachers.json:
+[
+    { "tno": 1, "tname": "Raj Kulkarni", "qualification": "PhD", "salary": 50000 },
+    { "tno": 2, "tname": "Kumar Deshmukh", "qualification": "MSc", "salary": 40000 },
+    { "tno": 3, "tname": "Ram Sawant", "qualification": "BEd", "salary": 35000 }
+]
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Select a Teacher to View Details</h2>
+    <select id="teacherSelect">
+        <option value="">-- Select Teacher --</option>
+    </select>
+    <button id="fetchDetails">Get Details</button>
+
+    <h3>Teacher Details</h3>
+    <table id="teacherDetails" style="display:none;">
+        <tr>
+            <th>Teacher No</th>
+            <td id="tno"></td>
+        </tr>
+        <tr>
+            <th>Teacher Name</th>
+            <td id="tname"></td>
+        </tr>
+        <tr>
+            <th>Qualification</th>
+            <td id="qualification"></td>
+        </tr>
+        <tr>
+            <th>Salary</th>
+            <td id="salary"></td>
+        </tr>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("teachers.json", function (data) {
+                data.forEach(function (teacher) {
+                    $("#teacherSelect").append(
+                        `<option value="${teacher.tno}">${teacher.tname}</option>`
+                    );
+                });
+
+                $("#fetchDetails").click(function () {
+                    const tno = $("#teacherSelect").val();
+                    if (!tno) {
+                        alert("Please select a teacher.");
+                        return;
+                    }
+
+                    const selectedTeacher = data.find(teacher => teacher.tno == tno);
+                    if (selectedTeacher) {
+                        $("#tno").text(selectedTeacher.tno);
+                        $("#tname").text(selectedTeacher.tname);
+                        $("#qualification").text(selectedTeacher.qualification);
+                        $("#salary").text(selectedTeacher.salary);
+                        $("#teacherDetails").show();
+                    }
+                });
+            }).fail(function () {
+                   alert("Failed to load teacher data.");
+               });
+           });
+       </script>
+   </body>
+   </html>
+   
+python:
+import pandas as pd
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ from sklearn.metrics import mean_squared_error, r2_score
+ np.random.seed(42)
+ data = {
+ 'ID': np.arange(1, 501),
+ 'TV': np.random.randint(10, 100, 500),
+ 'Radio': np.random.randint(5, 50, 500),
+ 'Newspaper': np.random.randint(1, 20, 500),
+ 'Sales': np.random.randint(50, 200, 500)
+ }
+ df = pd.DataFrame(data)
+
+ X=df[['TV', 'Radio', 'Newspaper']]
+ y =df['Sales']
+ 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+ random_state=42)
+ print(f"X_train shape: {X_train.shape}")
+ print(f"X_test shape: {X_test.shape}")
+ print(f"y_train shape: {y_train.shape}")
+print(f"y_test shape: {y_test.shape}")
+ 
+ model = LinearRegression()
+ model.fit(X_train, y_train)
+
+ y_pred = model.predict(X_test)
+ mse = mean_squared_error(y_test, y_pred)
+ r2 = r2_score(y_test, y_pred)
+ print(f"Mean Squared Error: {mse}")
+ print(f"R-squared: {r2}")
+                            
+***************************************************************************************************************
+
+Slip 13
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            
+            event.preventDefault();
+            
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            
+            let isValid = true;
+            
+           
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+           
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+           
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+          
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+         
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+import pandas as pd
+
+df = pd.read_csv('/media/sf_Bothos/pyprac/Market_Basket_analysis.csv')
+
+print("Dataset Information:")
+print(df.info())
+
+print("\nDataset Preview:")
+print(df.head())
+
+df.dropna(inplace=True)
+
+top_support_rules = df.sort_values(by='support', ascending=False).head(5)
+print("\nTop 5 Rules by Support:")
+print(top_support_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_confidence_rules = df.sort_values(by='confidence', ascending=False).head(5)
+print("\nTop 5 Rules by Confidence:")
+print(top_confidence_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_lift_rules = df.sort_values(by='lift', ascending=False).head(5)
+print("\nTop 5 Rules by Lift:")
+print(top_lift_rules[['rules', 'support', 'confidence', 'lift']])
+                                                                     
+*************************************************************************************************************
+
+Slip 14
+
+contaxt.dat:
+1,Raj Joshi,1234567890,9876543210,Pune
+2,Kunal Kulkarni,2345678901,8765432109,Mumbai
+3,Sachin Deshpande,3456789012,7654321098,Pune
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Contact Viewer</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Viewer</h1>
+        <button id="printButton">Print Contacts</button>
+        <div id="output"></div>
+    </div>
+    <script>
+        document.getElementById("printButton").addEventListener("click", function() {
+            const xhr = new XMLHttpRequest();
+            const file = "contact.dat";
+            xhr.open("GET", file, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const data = xhr.responseText;
+                    const lines = data.split("\n");
+
+                    let table = "<table>";
+                    table += "<tr><th>Sr No</th><th>Name</th><th>Residence Number</th><th>Mobile Number</th><th>Address</th></tr>";
+
+                    lines.forEach(line => {
+                        if (line.trim() !== "") {
+                            const fields = line.split(",");
+                            table += `<tr>
+                                <td>${fields[0]}</td>
+                                <td>${fields[1]}</td>
+                                <td>${fields[2]}</td>
+                                <td>${fields[3]}</td>
+                                <td>${fields[4]}</td>
+                            </tr>`;
+                        }
+                    });
+
+                    table += "</table>";
+                    document.getElementById("output").innerHTML = table;
+                } else {
+                    document.getElementById("output").innerHTML = "Failed to load the file.";
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById("output").innerHTML = "Error fetching the file.";
+            };
+
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
+
+
+python:
+import pandas as pd
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+
+iris = sns.load_dataset('iris')
+
+print("Basic Statistical Details:")
+print(iris.describe())
+
+species = ['setosa', 'versicolor', 'virginica']
+iris_filtered = iris[iris['species'].isin(species)]
+
+X = iris_filtered[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
+y = iris_filtered['species']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\nAccuracy of the Logistic Regression model: {accuracy:.2f}")
+
+*************************************************************************************************************
+
+Slip 15
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Name Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-top: 10px;
+            width: 300px;
+        }
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Type Your Name</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <p id="responseMessage">Stranger, please tell me your name!</p>
+    <script>
+        $(document).ready(function () {
+            const knownNames = ["Rohit", "Virat", "Dhoni", "Ashwin", "Harbhajan"];
+            $("#nameInput").on("keyup", function () {
+                const name = $(this).val().trim();
+                setTimeout(() => {
+                    if (name === "") {
+                        $("#responseMessage").text("Stranger, please tell me your name!");
+                    } else if (knownNames.includes(name)) {
+                        $("#responseMessage").text(`Hello, master ${name}!`);
+                    } else {
+                        $("#responseMessage").text(`${name}, I don’t know you!`);
+                    }
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
+
+python:
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+np.random.seed(42)
+
+data = {
+    'ID': np.arange(1, 501),
+    'flat': np.random.randint(10, 100, 500),
+    'houses': np.random.randint(5, 50, 500),
+    'purchases': np.random.randint(50, 200, 500)
+}
+
+df = pd.DataFrame(data)
+
+X = df[['flat', 'houses']]
+y = df['purchases']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+print(f"X_train shape: {X_train.shape}")
+print(f"X_test shape: {X_test.shape}")
+print(f"y_train shape: {y_train.shape}")
+print(f"y_test shape: {y_test.shape}")
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse}")
+print(f"R-squared: {r2}")
+                           
+
+*************************************************************************************************************
+
+Slip 16
+
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            let isValid = true;
+            
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+data = pd.read_csv('/media/sf_Bothos/pyprac/groceries - groceries.csv')
+print("Dataset Information:")
+print(data.info())
+print("\nFirst few rows of the dataset:")
+print(data.head())
+data.dropna(how='all', inplace=True)  
+basket = data.melt(id_vars=['Item(s)'], value_vars=data.columns[1:], 
+                   var_name='Item Number', value_name='Item').dropna()
+basket = (basket
+          .groupby(['Item(s)', 'Item'])['Item']
+          .count().unstack().reset_index().fillna(0)
+          .set_index('Item(s)'))
+basket = basket.applymap(lambda x: 1 if x > 0 else 0)
+frequent_itemsets = apriori(basket, min_support=0.01, use_colnames=True)
+rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+print("\nFrequent Itemsets:")
+print(frequent_itemsets)
+
+print("\nAssociation Rules:")
+print(rules)
+
+*************************************************************************************************************
+
+Slip 17
+
+teachers.json:
+[
+    { "tno": 1, "tname": "Raj Kulkarni", "qualification": "PhD", "salary": 50000 },
+    { "tno": 2, "tname": "Kumar Deshmukh", "qualification": "MSc", "salary": 40000 },
+    { "tno": 3, "tname": "Ram Sawant", "qualification": "BEd", "salary": 35000 }
+]
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Select a Teacher to View Details</h2>
+    <select id="teacherSelect">
+        <option value="">-- Select Teacher --</option>
+    </select>
+    <button id="fetchDetails">Get Details</button>
+
+    <h3>Teacher Details</h3>
+    <table id="teacherDetails" style="display:none;">
+        <tr>
+            <th>Teacher No</th>
+            <td id="tno"></td>
+        </tr>
+        <tr>
+            <th>Teacher Name</th>
+            <td id="tname"></td>
+        </tr>
+        <tr>
+            <th>Qualification</th>
+            <td id="qualification"></td>
+        </tr>
+        <tr>
+            <th>Salary</th>
+            <td id="salary"></td>
+        </tr>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("teachers.json", function (data) {
+                data.forEach(function (teacher) {
+                    $("#teacherSelect").append(
+                        `<option value="${teacher.tno}">${teacher.tname}</option>`
+                    );
+                });
+
+                $("#fetchDetails").click(function () {
+                    const tno = $("#teacherSelect").val();
+                    if (!tno) {
+                        alert("Please select a teacher.");
+                        return;
+                    }
+
+                    const selectedTeacher = data.find(teacher => teacher.tno == tno);
+                    if (selectedTeacher) {
+                        $("#tno").text(selectedTeacher.tno);
+                        $("#tname").text(selectedTeacher.tname);
+                        $("#qualification").text(selectedTeacher.qualification);
+                        $("#salary").text(selectedTeacher.salary);
+                        $("#teacherDetails").show();
+                    }
+                });
+            }).fail(function () {
+                   alert("Failed to load teacher data.");
+               });
+           });
+       </script>
+   </body>
+   </html>
+   
+python:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+df = pd.read_csv('/media/sf_Bothos/pyprac/Fish.csv')
+
+print("First few rows of the dataset:")
+print(df.head())
+
+print("\nMissing values in the dataset:")
+print(df.isnull().sum())
+
+X = df[['Length1', 'Length2', 'Height', 'Width']]  
+y = df['Weight']  
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=101)
+
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+predictions = lr.predict(X_test)
+
+
+mse = mean_squared_error(y_test, predictions)
+r2 = r2_score(y_test, predictions)
+
+print(f'\nMean Squared Error: {mse}')
+print(f'R² Score: {r2}')
+
+plt.scatter(y_test, predictions)
+plt.xlabel('Actual Weights')
+plt.ylabel('Predicted Weights')
+plt.title('Actual vs Predicted Weights')
+plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2) 
+
+************************************************************************************************************
+
+Slip 18
+
+ html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            let isValid = true;
+            
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+ import pandas as pd
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.metrics import accuracy_score, confusion_matrix
+ np.random.seed(42)
+ data = {
+ 'User ID': np.arange(1, 501),
+ 'Gender': np.random.choice(['Male', 'Female'], 500),
+ 'Age': np.random.randint(18, 60, 500),
+ 'EstimatedSalary': np.random.randint(15000, 150000, 500),
+ 'Purchased': np.random.choice([0, 1], 500) 
+ }
+ df = pd.DataFrame(data)
+ df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+ 
+ X=df[['Gender', 'Age', 'EstimatedSalary']]
+ y =df['Purchased']
+ 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+ random_state=42)
+ model = LogisticRegression()
+ model.fit(X_train, y_train)
+
+ y_pred = model.predict(X_test)
+
+ accuracy = accuracy_score(y_test, y_pred)
+ conf_matrix = confusion_matrix(y_test, y_pred)
+ print(f"Accuracy: {accuracy}")
+ print(f"Confusion Matrix:\n{conf_matrix}")
+                                              
+**************************************************************************************************************
+
+Slip 19
+
+ html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            
+            let isValid = true;
+            
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+            
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            
+            if (username === "") {
+                usernameError.textContent = "Username is required.";
+                isValid = false;
+            } else if (username.length < 4 || username.length > 12) {
+                usernameError.textContent = "Username must be between 4 and 12 characters.";
+                isValid = false;
+            }
+            
+            if (password === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one uppercase letter.";
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                passwordError.textContent = "Password must include at least one lowercase letter.";
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                passwordError.textContent = "Password must include at least one number.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert("Form submitted successfully!");
+                document.getElementById("membershipForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Membership Form</h1>
+    <form id="membershipForm" onsubmit="validateForm(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+Python:
+ import pandas as pd
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.metrics import accuracy_score, confusion_matrix
+ np.random.seed(42)
+ data = {
+ 'User ID': np.arange(1, 501),
+ 'Gender': np.random.choice(['Male', 'Female'], 500),
+ 'Age': np.random.randint(18, 60, 500),
+ 'EstimatedSalary': np.random.randint(15000, 150000, 500),
+ 'Purchased': np.random.choice([0, 1], 500) 
+ }
+ df = pd.DataFrame(data)
+ df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+ 
+ X=df[['Gender', 'Age', 'EstimatedSalary']]
+ y =df['Purchased']
+ 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+ random_state=42)
+ model = LogisticRegression()
+ model.fit(X_train, y_train)
+
+ y_pred = model.predict(X_test)
+
+ accuracy = accuracy_score(y_test, y_pred)
+ conf_matrix = confusion_matrix(y_test, y_pred)
+ print(f"Accuracy: {accuracy}")
+ print(f"Confusion Matrix:\n{conf_matrix}")
+                                              
+*************************************************************************************************************
+
+Slip 20
+
+book.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <bookno>1</bookno>
+        <bookname>PHP for Beginners</bookname>
+        <authorname>John Doe</authorname>
+        <price>29.99</price>
+        <year>2021</year>
+    </book>
+    <book>
+        <bookno>2</bookno>
+        <bookname>Advanced PHP Programming</bookname>
+        <authorname>Jane Smith</authorname>
+        <price>39.99</price>
+        <year>2022</year>
+    </book>
+</library>
+
+display_books.php:
+<?php 
+$xml = simplexml_load_file("book.xml"); 
+if ($xml === false) { 
+    echo "Failed to load XML file."; 
+    foreach(libxml_get_errors() as $error) { 
+        echo "<br>", $error->message; 
+    } 
+    exit; 
+} 
+foreach ($xml->book as $book) { 
+    echo "Book Number: " . $book->bookno . "<br>"; 
+    echo "Book Name: " . $book->bookname . "<br>"; 
+    echo "Author Name: " . $book->authorname . "<br>"; 
+    echo "Price: " . $book->price . "<br>"; 
+    echo "Year: " . $book->year . "<br>"; 
+    echo "<hr>"; 
+} 
+?>
+
+python:
+import pandas as pd
+
+df = pd.read_csv('/media/sf_Bothos/pyprac/Market_Basket_analysis.csv')
+
+print("Dataset Information:")
+print(df.info())
+
+print("\nDataset Preview:")
+print(df.head())
+
+df.dropna(inplace=True)
+
+top_support_rules = df.sort_values(by='support', ascending=False).head(5)
+print("\nTop 5 Rules by Support:")
+print(top_support_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_confidence_rules = df.sort_values(by='confidence', ascending=False).head(5)
+print("\nTop 5 Rules by Confidence:")
+print(top_confidence_rules[['rules', 'support', 'confidence', 'lift']])
+
+top_lift_rules = df.sort_values(by='lift', ascending=False).head(5)
+print("\nTop 5 Rules by Lift:")
+print(top_lift_rules[['rules', 'support', 'confidence', 'lift']])
+                                                                     
+                                                                               
+#############################################################################################################

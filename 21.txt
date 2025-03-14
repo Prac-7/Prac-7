@@ -1,0 +1,118 @@
+1)
+
+import java.io.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class SimpleSearchEngine {
+
+    // Define a class that implements Runnable to handle search in each file
+    static class FileSearchTask implements Runnable {
+        private String filename;
+        private String searchString;
+
+        public FileSearchTask(String filename, String searchString) {
+            this.filename = filename;
+            this.searchString = searchString;
+        }
+
+        @Override
+        public void run() {
+            searchInFile(filename, searchString);
+        }
+
+        private void searchInFile(String filename, String searchString) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+                String line;
+                int lineNumber = 1;
+                boolean found = false;
+                
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains(searchString)) {
+                        System.out.println("Found in " + filename + " on line " + lineNumber);
+                        found = true;
+                    }
+                    lineNumber++;
+                }
+                
+                if (!found) {
+                    System.out.println("String not found in " + filename);
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file " + filename + ": " + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Prompt user for the search string
+        System.out.print("Enter the string to search for: ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String searchString = br.readLine();
+
+            // Get a list of all text files in the current directory
+            File directory = new File(".");
+            File[] files = directory.listFiles((dir, name) -> name.endsWith(".txt"));
+
+            // Create a thread pool for managing threads
+            ExecutorService executorService = Executors.newCachedThreadPool();
+
+            if (files != null && files.length > 0) {
+                for (File file : files) {
+                    // For each text file, submit a task to search in the file
+                    executorService.submit(new FileSearchTask(file.getName(), searchString));
+                }
+            } else {
+                System.out.println("No text files found in the current directory.");
+            }
+
+            // Shutdown the executor service to stop accepting new tasks and wait for existing tasks to complete
+            executorService.shutdown();
+
+        } catch (IOException e) {
+            System.out.println("Error reading input: " + e.getMessage());
+        }
+    }
+}
+
+
+
+
+
+
+2)
+import java.sql.*;
+
+class ResultSetMetaDataDemo {
+    public static void main(String args[]) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver Loaded");
+        
+        Connection con = DriverManager.getConnection("jdbc:postgresql:tybcs", "postgres", "postgres");
+        System.out.println("Connection Established");
+        
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("Select * from Student");
+        ResultSetMetaData rsmd = rs.getMetaData();
+        
+        int n = rsmd.getColumnCount();
+        System.out.println("No. of columns=" + n);
+        
+        for (int i = 1; i <= n; i++) {
+            System.out.println("Column Number: " + i);
+            System.out.println("===============");
+            System.out.println("Column name=" + rsmd.getColumnName(i));
+            System.out.println("Column Type=" + rsmd.getColumnTypeName(i));
+            System.out.println("Column Width=" + rsmd.getColumnDisplaySize(i));
+            System.out.println("Column Precision=" + rsmd.getPrecision(i));
+            System.out.println("Is Currency=" + rsmd.isCurrency(i));
+            System.out.println("Is ReadOnly=" + rsmd.isReadOnly(i));
+            System.out.println("Is Writable=" + rsmd.isWritable(i));
+            System.out.println("Is Searchable=" + rsmd.isSearchable(i));
+            System.out.println("Is Signed=" + rsmd.isSigned(i));
+        }
+        
+        con.close();
+    }
+}

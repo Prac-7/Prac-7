@@ -1,0 +1,105 @@
+1)
+import java.util.*;
+import java.io.*;
+
+public class ArrayListDemo 
+{
+    public static void main(String args[]) throws Exception 
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList al = new ArrayList();
+
+        System.out.println("\nHow many City?");
+        int n = Integer.parseInt(br.readLine());
+        System.out.println("\n Enter City names:");
+
+        for (int i =0  ; i <= n; i++) 
+        {
+            al.add(br.readLine());
+        }
+        System.out.println("Entered cities are :" + al);
+        al.removeAll(al);
+        System.out.println("All cities are removed from the ArrayList:" + al);
+    }
+}
+
+------
+2)
+html
+------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <form method="post" action="CookieDemo">
+<input type="radio" name="sub" value="Maths"> Maths <br>
+  <input type="radio" name="sub" value="Physics"> Physics <br>    
+<input type="radio" name="sub" value="Chemistry"> Chemistry<br>
+        <input type="radio" name="sub" value="Biology"> Biology <br>
+  <input type="submit" value="Submit">
+    </form>   
+     <form method="get" action="CookieDemo">  
+  <input type="submit" value="reset">
+    </form>
+
+</body>
+</html>
+-----------------------------------------
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class CookieDemo
+ */
+@WebServlet("/CookieDemo")
+public class CookieDemo extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CookieDemo() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        // response.getWriter().append("Served at: ").append(request.getContextPath());
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        String s = request.getParameter("sub");
+
+        Cookie c = new Cookie("sub", null); 
+        out.println("Reset....");
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+        
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        String s = request.getParameter("sub");
+        
+        Cookie c1 = new Cookie("sub", s);
+        out.println("You have selected the subject: " + c1.getValue());
+    }
+}
+

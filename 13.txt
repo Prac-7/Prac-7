@@ -1,0 +1,75 @@
+1)
+import java.util.*;
+import java.io.*;
+
+class HashTableDemo {
+    public static void main(String args[]) {
+        Hashtable ht = new Hashtable();
+        Enumeration names;
+        String str;
+
+        ht.put("Amar", new Long(2222222222L));
+        ht.put("Anil", new Long(3333333333L));
+        ht.put("Soham", new Long(8888888888L));
+        ht.put("Kiran", new Long(9999999999L));
+        ht.put("Williams", new Long(4444444444L));
+
+        names = ht.keys();
+        while (names.hasMoreElements()) {
+            str = (String) names.nextElement();
+            System.out.println(str + ": " + ht.get(str));
+        }
+    }
+}
+
+
+2)
+Hello Beans java
+-----------------
+import java text. DateFormat;
+import java. text. SimpleDateFormat;
+import  java.util.*;
+
+public class HelloBeans
+{
+	Private String name;
+
+	public void getName()
+	{
+		System.out.println ("Your name is: "+name); 
+
+		public public void setName()
+		{
+			this.name =name;
+		}
+		public void getCurrentDateTimeUsingDate()
+
+		Date date = new Date(0);
+
+		String strDateFormat= "hh:mm:ss  a";
+
+		DateFormat dateFormat = new SimpleDateFormat(str DateFormat);
+
+		String formattedDate= dateFormat. format(date);
+
+		System.out.println(" Current time of the date: " +formattedDate);
+	}
+}
+----------------
+MainApp.java
+----------------
+import org. springframework.context.Application Context;
+
+import org.springframework. context.ClassPathXml ApplicationContext;
+
+public class MainApp
+{
+public static void main(String args[])
+{
+ApplicationContext context = new ClassPathXml ApplicationContext("Beans.xml"); 
+Hello Beans hb = (HelloBeans)context.getBeans ("helloworld");
+hb.getName();
+hb.getCurrentDateTimeUsingDate();
+}
+}
+

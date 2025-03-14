@@ -1,0 +1,88 @@
+1)
+import java.util.*;
+
+class HashMapDemo {
+    public static void main(String args[]) {
+        HashMap<Integer, String> ha = new HashMap<>();
+        ha.put(10, "Java");
+        ha.put(20, "Operating System");
+        ha.put(30, "SoftwareTesting Tools");
+        ha.put(40, "Compiler Constructor");
+        ha.put(50, "Web Technologies");
+
+        // Before Sorting
+        System.out.println("Before Sorting:");
+        Set<Map.Entry<Integer, String>> set = ha.entrySet();
+        Iterator<Map.Entry<Integer, String>> it = set.iterator();
+        while (it.hasNext()) {
+            Map.Entry<Integer, String> me = it.next();
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
+
+        // After Sorting (Using TreeMap)
+        Map<Integer, String> map = new TreeMap<>(ha);  // Sorting by keys with TreeMap
+        System.out.println("After Sorting:");
+        Set<Map.Entry<Integer, String>> set1 = map.entrySet();
+        Iterator<Map.Entry<Integer, String>> it2 = set1.iterator();
+        while (it2.hasNext()) {
+            Map.Entry<Integer, String> me2 = it2.next();
+            System.out.print(me2.getKey() + ": ");
+            System.out.println(me2.getValue());
+        }
+    }
+}
+
+
+
+2)
+HelloBeans.java
+-----------------
+import java text. DateFormat;
+import java. text. SimpleDateFormat;
+import  java.util.*;
+
+public class HelloBeans
+{
+	Private String name;
+	public void getName()
+	{
+		System.out.println ("Your name is: "+name); 
+
+		public public void setName()
+		{
+			this.name =name;
+		}
+		public void getCurrentDateTimeUsingDate()
+
+		Date date = new Date(0);
+
+		String strDateFormat= "hh:mm:ss  a";
+
+		DateFormat dateFormat = new SimpleDateFormat(str DateFormat);
+
+		String formattedDate= dateFormat. format(date);
+
+		System.out.println(" Current time of the date: " +formattedDate);
+	}
+}
+
+------------
+MainApp.java
+-------------
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainApp 
+{
+	public static void main(String args[])
+	{
+        	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+      		HelloBeans hb = (HelloBeans) context.getBean("helloworld");
+        	hb.getName();
+        	hb.getCurrentDateTimeUsingDate();
+    	}
+}
+
+
+

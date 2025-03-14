@@ -1,0 +1,127 @@
+1)
+class MyThreadDemo {
+    public static void main(String args[]) {
+        Thread t = Thread.currentThread();
+        System.out.println("Current Thread is: " + t);
+
+        // Changing the thread name
+        t.setName("Demo Thread");
+        System.out.println("After changing the name, thread is: " + t);
+
+        try {
+            for (int n = 100; n > 0; n--) {
+                System.out.println(n);
+                Thread.sleep(1); // Pause for 6 seconds
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread interrupted");
+        }
+    }
+}
+
+
+
+2)
+/////Customer.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action="Customer" method="GET">
+            Enter Customer No:<input type="text" name="t1">
+            <input type="submit" value="Submit">
+        </form>
+
+</body>
+</html>
+---------------------------------
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Customer
+ */
+@WebServlet("/Customer")
+public class Customer extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    Connection cn;
+    public void init()
+    {
+       try
+       {
+            Class.forName("org.postgresql.Driver");
+            cn=DriverManager.getConnection("jdbc:postgresql:tybcs","postgres","Pass@word");
+            
+       }
+       catch(Exception ce)
+       {   
+           System.out.println("Error"+ce.getMessage());
+       }
+ 
+    }
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+	
+	
+		response.setContentType("text/html");
+        PrintWriter out=response.getWriter();        
+        try
+        {
+ 
+     /*   	Class.forName("org.postgresql.Driver");
+           Connection cn=DriverManager.getConnection("jdbc:postgresql:tybcs","postgres","Pass@word"); */      	
+        	int id=Integer.parseInt(request.getParameter("t1"));           
+            
+			String qry="select * from Customer1 where id="+id;
+			
+            
+            Statement st=cn.createStatement();
+            ResultSet rs=st.executeQuery(qry); 
+            
+            while(rs.next()) {
+                out.print("<table border=1>");
+                out.print("<tr>");
+                out.print("<td>" + rs.getInt(1) + "</td>");
+                out.print("<td>" + rs.getString(2) + "</td>");
+                
+                out.print("</tr>");
+                out.print("</table>");
+            
+            }
+        }
+        catch(Exception se){
+        	out.print(se);
+        }
+        out.close();
+    }
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

@@ -1,0 +1,16 @@
+Beans.xml(Spring)
+
+/code
+
+<bean id="helloworld" class="Class Name">
+
+<property name="name" value="Welcome">
+</property>
+</bean>
+
+</beans>
+
+
+
+
+
